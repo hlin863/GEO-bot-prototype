@@ -2343,3 +2343,111 @@
     background: #f4fbf4;
   }
 }
+
+/* === GEO chat history welcome/layout stability patch === */
+/* UI stability patch: prevents the welcome panel, streamed answer, feedback, and input bar from occupying the same visual space. */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  height: calc(100vh - var(--navbar-height, 64px));
+  min-height: 0;
+}
+
+.chat-container {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.resizable-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+.chat-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatMessages.chat-messages {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat-input-bar,
+.chat-disclaimer {
+  flex: 0 0 auto;
+}
+
+.question-container,
+.chat-message-wrapper,
+.answer-feedback-wrapper,
+.feedback-container {
+  position: relative;
+  clear: both;
+}
+
+.question-container {
+  display: block;
+  margin: 0 0 16px;
+}
+
+.answer-feedback-wrapper {
+  margin-top: 10px;
+}
+
+.chat-message {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.answer-placeholder {
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.answer-placeholder.is-loading {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.geo-empty-state {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.response-time {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: grey;
+}
+
+/* New-chat welcome restoration */
+.active-new-chat {
+  background: #e8f3ea !important;
+  border-left: 4px solid var(--geo-brand, #2f7d32);
+  font-weight: 700;
+}
+
+.geo-suggestion-button:focus-visible {
+  outline: 3px solid rgba(47, 125, 50, 0.25);
+  outline-offset: 2px;
+}
